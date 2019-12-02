@@ -135,6 +135,11 @@ class Siswa extends Component{
 
   btnBack(event){
     event.preventDefault()
+
+    $('#nis').val("")
+    $('#nama').val("")
+    $('#kode_kelas').val("")
+
     $('#SiswaForm').hide()
     $('#SiswaTable').show()
     $('#btnTambah').show()
