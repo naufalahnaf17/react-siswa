@@ -200,6 +200,39 @@ class Siswa extends Component{
 
   }
 
+  getSearch(event){
+    event.preventDefault()
+
+    this.setState({
+      siswa : [],
+      next_url : '',
+      prev_url : ''
+    })
+
+    if (event.target.value === "") {
+      this.getSiswa()
+    }
+
+    axios({
+      method : 'get',
+      url : 'https://laravel.simkug.com/siswa-api/public/api/siswa/' + event.target.value,
+      headers : {
+        'Authorization' : 'Bearer' + ' ' + localStorage.getItem('your-key')
+      }
+    }).then((response) => {
+
+      this.setState({
+        siswa : response.data.value.data,
+        next_url : response.data.value.next_page_url,
+        prev_url : response.data.value.prev_page_url
+      })
+
+    }).catch((error) => {
+      this.getSiswa()
+    })
+
+  }
+
   tambahData(event){
 
     event.preventDefault()
@@ -314,6 +347,58 @@ class Siswa extends Component{
 
   }
 
+
+  sortNis(event){
+
+    event.preventDefault()
+    var array = this.state.siswa
+    var clicked = true
+
+    array.reverse(function(a, b){
+      var a1= a.nis, b1= b.nis;
+      if(a1== b1) return 0;
+      return a1> b1? 1: -1;
+    });
+
+    this.setState({
+      siswa : array
+    })
+
+  }
+
+  getEntry(event){
+    event.preventDefault()
+
+    var entryNumber = ''
+
+    if (event.target.value === "") {
+      entryNumber = 15
+    }
+
+    this.setState({
+      siswa : [],
+      next_url : '',
+      prev_url : ''
+    })
+
+    axios({
+      method : 'get',
+      url : 'https://laravel.simkug.com/siswa-api/public/api/siswa/' + event.target.value + '/entry',
+      headers : {
+        'Authorization' : 'Bearer' + ' ' + localStorage.getItem('your-key')
+      }
+    }).then((response) => {
+
+      this.setState({
+        siswa : response.data.value.data,
+        next_url : response.data.value.next_page_url,
+        prev_url : response.data.value.prev_page_url
+      })
+
+    })
+
+  }
+
   render(){
 
     const {siswa} = this.state
@@ -325,14 +410,43 @@ class Siswa extends Component{
             <h5 style={{ float:'left' }}>Data Siswa</h5>
             <button id="btnTambah" onClick={this.btnTambah} className="btn btn-primary" style={{ float:'right' }} >Tambah Siswa</button>
             <button id="btnKembali" onClick={this.btnBack} className="btn btn-danger" style={{ float:'right' }} >Kembali</button>
+            <br></br><hr></hr>
+
+            {/*Content Sort By And Search*/}
+
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <p>Show
+                    <select onChange={this.getEntry.bind(this)} style={{ width : 100 }} className="ml-2 mr-2 custom-select">
+                     <option value="5">5</option>
+                     <option value="10">10</option>
+                     <option value="15">15</option>
+                    </select>
+                    Entries
+                  </p>
+                </div>
+                <div class="col">
+                <div class="input-group flex-nowrap" style={{ width : 400 , float:'right' }}>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping">Search</span>
+                  </div>
+                  <input onChange={this.getSearch.bind(this)} type="text" class="form-control" placeholder="Cari Siswa"></input>
+                </div>
+                </div>
+              </div>
+            </div>
+
+            {/*Content Sort By And Search*/}
+
           </div>
           <div className="card-body">
           <table className="table table-striped" id="SiswaTable">
             <thead>
               <tr>
-                <th scope="col">Nis</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Kode Kelas</th>
+                <th onClick={this.sortNis.bind(this)} scope="col">Nis</th>
+                <th onClick={this.sortNis.bind(this)} scope="col">Nama</th>
+                <th onClick={this.sortNis.bind(this)} scope="col">Kode Kelas</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
