@@ -372,7 +372,7 @@ class Siswa extends Component{
     var entryNumber = ''
 
     if (event.target.value === "") {
-      entryNumber = 15
+      this.getSiswa()
     }
 
     this.setState({
