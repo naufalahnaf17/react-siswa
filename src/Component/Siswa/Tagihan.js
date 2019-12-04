@@ -3,25 +3,61 @@ import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 import $ from 'jquery';
 
+function RowInput(){
+  return(
+    <tbody>
+    <tr id="input-1">
+      <td><input id="jen-tag-1" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
+      <td><input id="nilai-tag-1" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
+    </tr>
+    <tr id="input-2">
+      <td><input id="jen-tag-2" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
+      <td><input id="nilai-tag-2" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
+    </tr>
+    <tr id="input-3">
+      <td><input id="jen-tag-3" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
+      <td><input id="nilai-tag-3" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
+    </tr>
+    <tr id="input-4">
+      <td><input id="jen-tag-4" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
+      <td><input id="nilai-tag-4" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
+    </tr>
+    <tr id="input-5">
+      <td><input id="jen-tag-5" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
+      <td><input id="nilai-tag-5" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
+    </tr>
+    <tr id="input-6">
+      <td><input id="jen-tag-6" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
+      <td><input id="nilai-tag-6" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
+    </tr>
+    </tbody>
+  );
+}
+
 class Tagihan extends Component{
 
   state = {
     tagihan : [],
     next_url : '',
     prev_url : '',
-    current_no_tagihan : ''
+    current_no_tagihan : '',
+    angka : 1
   }
-
   constructor(props){
     super(props)
     this.getTagihan = this.getTagihan.bind(this)
   }
-
   componentDidMount(){
     $('#btnKembali').hide()
     $('#TagihanForm').hide()
     $('#btnEditData').hide()
     $('#btnAddData').hide()
+
+    $('#input-2').hide()
+    $('#input-3').hide()
+    $('#input-4').hide()
+    $('#input-5').hide()
+    $('#input-6').hide()
 
     if (this.state.next_url === "" && this.state.prev_url === "") {
       $('#pagination').hide()
@@ -30,11 +66,9 @@ class Tagihan extends Component{
     }
 
   }
-
   componentWillMount(){
     this.getTagihan()
   }
-
   getTagihan(){
 
     this.setState({
@@ -60,7 +94,6 @@ class Tagihan extends Component{
     })
 
   }
-
   btnTambah(event){
     event.preventDefault()
     $('#TagihanForm').show()
@@ -70,7 +103,6 @@ class Tagihan extends Component{
     $('#btnAddData').show()
     $('#btnKembali').show()
   }
-
   btnKembali(event){
     event.preventDefault()
     $('#TagihanForm').hide()
@@ -89,7 +121,6 @@ class Tagihan extends Component{
     $('#periode').val("")
 
   }
-
   AddStore(event){
     event.preventDefault()
 
@@ -124,7 +155,6 @@ class Tagihan extends Component{
     })
 
   }
-
   hapusData(event){
     event.preventDefault()
 
@@ -142,7 +172,6 @@ class Tagihan extends Component{
     })
 
   }
-
   toEdit(event){
     event.preventDefault()
 
@@ -176,7 +205,6 @@ class Tagihan extends Component{
     })
 
   }
-
   EditStore(event){
     event.preventDefault()
 
@@ -211,7 +239,6 @@ class Tagihan extends Component{
     })
 
   }
-
   sortData(event){
 
     event.preventDefault()
@@ -229,7 +256,6 @@ class Tagihan extends Component{
     })
 
   }
-
   search(event){
     event.preventDefault()
     var value = event.target.value
@@ -259,9 +285,49 @@ class Tagihan extends Component{
     })
 
   }
+  tambahInput(event){
+    event.preventDefault()
+
+    var i = this.state.angka
+
+    this.setState({
+        angka : this.state.angka+=1
+    })
+
+    if (i >= 6) {
+      alert('Batas Maksimal Saat Ini Hanya 6')
+      this.setState({
+        angka : 5
+      })
+      return false
+    }else {
+      $('#input-' + this.state.angka).show()
+    }
+
+  }
+  kurangInput(event){
+    event.preventDefault()
+
+    var i = this.state.angka
+
+    this.setState({
+        angka : this.state.angka-=1
+    })
+
+    if (i === 0) {
+      alert('Sudah Batas Minimal')
+      this.setState({
+        angka : 1
+      })
+      return false
+    }else {
+      $('#input-' + this.state.angka).hide()
+    }
+
+  }
 
   render(){
-    const {tagihan} = this.state
+    const {tagihan,angka} = this.state
     return(
       <div className="Container">
         <div className="card">
@@ -272,10 +338,9 @@ class Tagihan extends Component{
             <br></br><hr></hr>
 
             {/*Content Sort By And Search*/}
-
-            <div id="search-sort" class="container">
-              <div class="row">
-                <div class="col">
+            <div id="search-sort" className="container">
+              <div className="row">
+                <div className="col">
                   <p>Show
                     <select style={{ width : 100 }} className="ml-2 mr-2 custom-select">
                      <option value="5">5</option>
@@ -285,17 +350,16 @@ class Tagihan extends Component{
                     Entries
                   </p>
                 </div>
-                <div class="col">
-                <div class="input-group flex-nowrap" style={{ width : 400 , float:'right' }}>
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping">Search</span>
+                <div className="col">
+                <div className="input-group flex-nowrap" style={{ width : 400 , float:'right' }}>
+                  <div className="input-group-prepend">
+                    <span className="input-group-text" id="addon-wrapping">Search</span>
                   </div>
-                  <input onChange={this.search.bind(this)} type="text" class="form-control" placeholder="Cari Tagihan"></input>
+                  <input onChange={this.search.bind(this)} type="text" className="form-control" placeholder="Cari Tagihan"></input>
                 </div>
                 </div>
               </div>
             </div>
-
             {/*Content Sort By And Search*/}
 
           </div>
@@ -349,32 +413,69 @@ class Tagihan extends Component{
 
             {/* Kontent Form Tambah Dan Edit */}
             <div id="TagihanForm">
-              <form>
-                <div className="form-group">
-                  <label>No Tagihan</label>
-                  <input type="text" className="form-control" id="no_tagihan" placeholder="Masukan No Tagihan"></input>
+            <div className="container">
+              <div className="row">
+                <div className="col">
+                  <div className="form-group">
+                    <label>No Tagihan</label>
+                    <input type="text" className="form-control" id="no_tagihan" placeholder="Masukan No Tagihan"></input>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Nim</label>
-                  <input type="text" className="form-control" id="nim" placeholder="Masukan Nim"></input>
+                <div className="col">
+                  <div className="form-group">
+                    <label>Nim</label>
+                    <input type="text" className="form-control" id="nim" placeholder="Masukan Nim"></input>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Tanggal</label>
-                  <input type="date" className="form-control" id="tanggal"></input>
+                <div className="w-100"></div>
+                <div className="col">
+                  <div className="form-group">
+                    <label>Tanggal</label>
+                    <input type="date" className="form-control" id="tanggal"></input>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Keterangan</label>
-                  <input type="text" className="form-control" id="keterangan" placeholder="Keterangan Tagihan"></input>
+                <div className="col">
+                  <div className="form-group">
+                    <label>Keterangan</label>
+                    <input type="text" className="form-control" id="keterangan" placeholder="Keterangan Tagihan"></input>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Periode</label>
-                  <input type="text" className="form-control" id="periode" placeholder="Contoh : 2019"></input>
+                <div className="w-100"></div>
+                <div className="col">
+                  <div className="form-group">
+                    <label>Periode</label>
+                    <input type="text" className="form-control" id="periode" placeholder="Contoh : 2019"></input>
+                  </div>
                 </div>
+                <div className="col"></div>
+              </div>
+              <hr></hr>
+              <div id="inputan">
+
+                <div className="row">
+                  <div className="col"><h5>Input Data Tagihan</h5></div>
+                  <div className="col">
+                    <button onClick={this.tambahInput.bind(this)} className="btn btn-success ml-1 mb-1" style={{ float:'right' }}>Add Row</button>
+                    <button onClick={this.kurangInput.bind(this)} className="btn btn-danger" style={{ float:'right' }}>Remove Row</button>
+                  </div>
+                </div>
+
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Jenis Tagihan</th>
+                      <th scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                  <RowInput />
+                </table>
+
                 <button id="btnAddData" onClick={this.AddStore.bind(this)} type="submit" className="btn btn-primary">Tambah Data</button>
                 <button id="btnEditData" onClick={this.EditStore.bind(this)} type="submit" className="btn btn-primary">Edit Data</button>
-              </form>
+              </div>
             </div>
-            {/* Kontent Form Tambah Dan Edit */}
+          </div>
+          {/* Kontent Form Tambah Dan Edit */}
 
           </div>
         </div>
