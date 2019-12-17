@@ -3,35 +3,53 @@ import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 import $ from 'jquery';
 
-function RowInput(){
-  return(
-    <tbody>
-    <tr id="input-1">
-      <td><input id="jen-tag-1" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
-      <td><input id="nilai-tag-1" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
-    </tr>
-    <tr id="input-2">
-      <td><input id="jen-tag-2" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
-      <td><input id="nilai-tag-2" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
-    </tr>
-    <tr id="input-3">
-      <td><input id="jen-tag-3" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
-      <td><input id="nilai-tag-3" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
-    </tr>
-    <tr id="input-4">
-      <td><input id="jen-tag-4" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
-      <td><input id="nilai-tag-4" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
-    </tr>
-    <tr id="input-5">
-      <td><input id="jen-tag-5" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
-      <td><input id="nilai-tag-5" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
-    </tr>
-    <tr id="input-6">
-      <td><input id="jen-tag-6" type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
-      <td><input id="nilai-tag-6" type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
-    </tr>
-    </tbody>
-  );
+class RowInput extends Component{
+
+  state = {
+    jmlh_row : ['']
+  }
+
+  constructor(props){
+    super(props)
+  }
+
+  componentDidMount(){
+    console.warn = console.error = () => {};
+  }
+
+  UNSAFE_componentWillReceiveProps(newProps){
+    if (this.props.data <= this.state.jmlh_row.length) {
+      this.state.jmlh_row.pop()
+    }else {
+      this.setState({ jmlh_row : this.state.jmlh_row.concat(this.props.data) })
+    }
+  }
+
+  cekson(e){
+    e.preventDefault() 
+    for (var i = 0; i < this.state.jmlh_row.length; i++) {
+      var indexState = this.state.jmlh_row[i]
+      var jenis = $('#jen-tag-' + indexState).val()
+      var nilai = $('#nilai-tag-' + indexState).val()
+      console.log([jenis,nilai,indexState]);
+    }
+  }
+
+  render(){
+    const {jmlh_row} = this.state
+    return (
+      <tbody>
+        {jmlh_row.map(angka => (
+          <tr key={angka}>
+            <td><input id={"jen-tag-" + angka} type="text" className="form-control" placeholder="Jenis Tagihan"></input></td>
+            <td><input id={"nilai-tag-" + angka} type="text" className="form-control" placeholder="Nilai tagihan"></input></td>
+            <td><button key={angka} onClick={this.cekson.bind(this)}>Cek Data </button></td>
+          </tr>
+        ))}
+      </tbody>
+    );
+  }
+
 }
 
 class Tagihan extends Component{
@@ -289,21 +307,9 @@ class Tagihan extends Component{
   tambahInput(event){
     event.preventDefault()
 
-    var i = this.state.angka
-
     this.setState({
         angka : this.state.angka+=1
     })
-
-    if (i >= 6) {
-      alert('Batas Maksimal Saat Ini Hanya 6')
-      this.setState({
-        angka : 5
-      })
-      return false
-    }else {
-      $('#input-' + this.state.angka).show()
-    }
 
   }
   kurangInput(event){
@@ -311,18 +317,14 @@ class Tagihan extends Component{
 
     var i = this.state.angka
 
-    this.setState({
-        angka : this.state.angka-=1
-    })
-
-    if (i === 0) {
-      alert('Sudah Batas Minimal')
+    if (i <= 1) {
       this.setState({
-        angka : 1
+          angka : 1
       })
-      return false
     }else {
-      $('#input-' + this.state.angka).hide()
+      this.setState({
+          angka : this.state.angka-=1
+      })
     }
 
   }
@@ -468,7 +470,7 @@ class Tagihan extends Component{
                       <th scope="col">Nilai</th>
                     </tr>
                   </thead>
-                  <RowInput />
+                  <RowInput data={this.state.angka} />
                 </table>
 
                 <button id="btnAddData" onClick={this.AddStore.bind(this)} type="submit" className="btn btn-primary">Tambah Data</button>
