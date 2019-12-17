@@ -4,22 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="asset_elite/images/favicon.png">
     <title>Siswa Crud</title>
-    <!-- This page CSS -->
-    <!-- chartist CSS -->
     <link href="asset_elite/node_modules/morrisjs/morris.css" rel="stylesheet">
-    <!--Toaster Popup message CSS -->
     <link href="asset_elite/node_modules/toast-master/css/jquery.toast.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="asset_elite/dist/css/style.min.css" rel="stylesheet">
-    <!-- Dashboard 1 Page CSS -->
-    <link href="asset_elite/dist/css/pages/dashboard1.css" rel="stylesheet">
     <style media="screen">
       a.rumah:hover{
         background-color: salmon;
@@ -38,57 +30,102 @@
     <link href="asset_elite/icons/font-awesome/css/fa-solid.css" rel="stylesheet">
     <link href="asset_elite/icons/font-awesome/css/fontawesome.css" rel="stylesheet">
     <link href="asset_elite/icons/font-awesome/css/fontawesome-all.css" rel="stylesheet">
-    <link href="asset_elite/icons/font-awesome/webfonts/fa-solid-900.woff2" rel="stylesheet">
-    <link href="asset_elite/icons/font-awesome/webfonts/fa-solid-900.ttf" rel="stylesheet">
-    <link href="asset_elite/icons/font-awesome/webfonts/fa-solid-900.woff" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href="asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css">
-    <!-- Select 2 -->
     <link href="asset_elite/node_modules/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
-    <!-- SAI CSS -->
     <link href="asset_elite/dist/css/sai.css" rel="stylesheet">
-    <!-- Quill Theme included stylesheets -->
-    <!-- Selectize -->
-    <!-- <link href="asset_elite/selectize.bootstrap3.css" rel="stylesheet"> -->
-    <!-- Datepicker -->
-    <link rel="stylesheet" href="asset_elite/bootstrap-datepicker.min.css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
-         <!-- All Jquery -->
 
     <script src="asset_elite/node_modules/jquery/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap popper Core JavaScript -->
     <script src="asset_elite/node_modules/popper/popper.min.js"></script>
     <script src="asset_elite/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="asset_elite/dist/js/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
     <script src="asset_elite/dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="asset_elite/dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="asset_elite/dist/js/custom.min.js"></script>
-
-    <!-- This page plugins -->
-
-    <!-- Popup message jquery -->
     <script src="asset_elite/node_modules/toast-master/js/jquery.toast.js"></script>
-    <!-- Chart JS -->
-    <script src="asset_elite/dist/js/dashboard1.js"></script>
     <script src="asset_elite/node_modules/toast-master/js/jquery.toast.js"></script>
-    <!-- Datatable -->
-
     <script src="asset_elite/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
 
 </head>
 
-<body class="skin-default fixed-layout">
-    <div id="root"></div>
-</body>
+<!-- Untuk User Awal Login Semua Di Hide -->
+<div id="loginForm"></div>
+<!-- Untuk User Awal Login Semua Di Hide -->
 
+<body class="skin-default fixed-layout">
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Elite admin</p>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header bg-blue">
+                    <a class="navbar-brand" href="index.html">
+                        <b>
+                            <img src="asset_elite/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="asset_elite/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                        </b>
+                        <span>
+                         <img src="asset_elite/images/logo-text.png" alt="homepage" class="dark-logo" />
+                         <img src="asset_elite/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                       </span>
+                     </a>
+                </div>
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"> <a class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
+                        <li class="nav-item">
+                            <form class="app-search d-none d-md-block d-lg-block mt-3">
+                                <input type="text" class="form-control" placeholder="Search & enter">
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav my-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="ti-email"></i>
+                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox scale-up">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">Notifications</div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center">
+                                            <a href="javascript:void(0)">
+                                                <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
+                                                <div class="mail-contnet">
+                                                  <h5>Belajar React JS</h5>
+                                                  <span class="mail-desc">Membuat Crud Siswa Dan Tagihan</span>
+                                                  <span class="time">09:30 AM</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center link" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Untuk User Profile Dan Logout -->
+                        <div id="user"></div>
+                        <!-- Untuk User Profile Dan Logout -->
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Untuk Menu Dan Content Yang Ada -->
+        <div id="main"></div>
+        <!-- Untuk Menu Dan Content Yang Ada -->
+
+    </div>
+
+</body>
 </html>
