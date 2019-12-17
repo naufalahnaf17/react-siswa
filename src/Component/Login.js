@@ -3,7 +3,6 @@ import $ from 'jquery';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Main from './Main';
 import '../Css/Login.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -21,10 +20,8 @@ class Login extends Component{
     this.btnLogin = this.btnLogin.bind(this)
   }
 
-  componentWillMount(){
-    if (localStorage.getItem('your-key')) {
-      ReactDOM.render(<Main />, document.getElementById('root'));
-    }
+  UNSAFE_componentWillMount(){
+    console.warn = console.error = () => {};
   }
 
   componentDidMount(){

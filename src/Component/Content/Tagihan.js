@@ -48,6 +48,7 @@ class Tagihan extends Component{
     this.getTagihan = this.getTagihan.bind(this)
   }
   componentDidMount(){
+    console.warn = console.error = () => {};
     $('#btnKembali').hide()
     $('#TagihanForm').hide()
     $('#btnEditData').hide()
@@ -66,7 +67,7 @@ class Tagihan extends Component{
     }
 
   }
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     this.getTagihan()
   }
   getTagihan(){
@@ -329,7 +330,7 @@ class Tagihan extends Component{
   render(){
     const {tagihan,angka} = this.state
     return(
-      <div className="Container">
+      <div className="Container mt-3">
         <div className="card">
           <div className="card-header">
             <h5 style={{ float:'left' }}>Data Tagihan</h5>
@@ -398,18 +399,18 @@ class Tagihan extends Component{
               </tbody>
               {/* Kontent Table Siswa */}
 
-              {/* Kontent Untuk Pagination */}
-              <div id="pagination">
-                <nav id="paginate-btn" style={{ margin:5 }} aria-label="Page navigation example">
-                  <ul className="pagination">
-                    <li className="page-item"><button className="page-link" href="#">Previous</button></li>
-                    <li className="page-item"><button className="page-link" href="#">Next</button></li>
-                  </ul>
-                </nav>
-              </div>
-              {/* Kontent Untuk Pagination */}
-
             </table>
+
+            {/* Kontent Untuk Pagination */}
+            <div id="pagination">
+              <nav id="paginate-btn" style={{ margin:5 }} aria-label="Page navigation example">
+                <ul className="pagination">
+                  <li className="page-item"><button className="page-link" href="#">Previous</button></li>
+                  <li className="page-item"><button className="page-link" href="#">Next</button></li>
+                </ul>
+              </nav>
+            </div>
+            {/* Kontent Untuk Pagination */}
 
             {/* Kontent Form Tambah Dan Edit */}
             <div id="TagihanForm">

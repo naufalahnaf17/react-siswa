@@ -3,28 +3,18 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 class LaporanPembayaran extends Component{
 
-  constructor(props){
-    super(props)
-    this.btnLogout = this.btnLogout.bind(this)
-  }
-
-  btnLogout(event){
-    event.preventDefault();
-    localStorage.clear();
-    window.location.reload();
-    this.props.history.push('/');
+  componentDidMount(){
+    console.warn = console.error = () => {};
   }
 
   render(){
     return(
-      <div className="Container">
-        <div class="card">
-          <div class="card-header">
-            <button onClick={this.btnLogout} className="btn btn-danger">Logout</button>
-          </div>
-          <div class="card-body">
-            <blockquote class="blockquote mb-0">
-              <h1>Kamu Berada Di Laporan Pembayaran</h1>
+      <div className="Container mt-3">
+        <div className="card">
+          <div className="card-body">
+            <blockquote className="blockquote mb-0">
+              <h1>Kamu Berada Di LaporanPembayaran</h1>
+              <p>Tekan Profile Di Pojok Kanan Atas Untuk Logout</p>
             </blockquote>
           </div>
         </div>

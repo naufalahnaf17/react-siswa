@@ -127,5 +127,15 @@
 
     </div>
 
+    <script type="text/javascript">
+
+      if (localStorage.getItem('your-key')) {
+        $('#main-wrapper').show()
+      }else {
+        $('#main-wrapper').hide()
+      }
+
+    </script>
+
 </body>
 </html>

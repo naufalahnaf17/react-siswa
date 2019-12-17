@@ -25,11 +25,12 @@ class Siswa extends Component{
     this.editData = this.editData.bind(this)
   }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     this.getSiswa()
   }
 
   componentDidMount(){
+    console.warn = console.error = () => {};
     $('#SiswaForm').hide()
     $('#btnKembali').hide()
     $('#btnEditData').hide()
@@ -404,7 +405,7 @@ class Siswa extends Component{
     const {siswa} = this.state
 
     return(
-      <div className="Container">
+      <div className="Container mt-3">
         <div className="card">
           <div className="card-header">
             <h5 style={{ float:'left' }}>Data Siswa</h5>

@@ -15,6 +15,10 @@ class Pembayaran extends Component{
     this.props.history.push('/');
   }
 
+  componentDidMount(){
+    console.warn = console.error = () => {};
+  }
+
   render(){
     return(
       <div className="Container">

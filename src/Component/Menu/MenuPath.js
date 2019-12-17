@@ -2,9 +2,10 @@ import React,{Component} from 'react'
 import {Switch,Route} from "react-router-dom";
 
 // Import Semua File Yang Di Butuhkan
-// Semua File Harus Di Masukan Manual Karen Map Tidak Berfungsi
+// Semua File Harus Di Masukan Manual Karena Map Tidak Berfungsi
 // Setelah Import Langsung Masukin Class Yang Sudah Di Panggil Tadi Ke Dalam Path (Bisa Siswa / Admin / Sekolah)
 import DataJenis from '../../Component/Content/DataJenis'
+import DataJurusan from '../../Component/Content/DataJurusan'
 import Dashboard from '../../Component/Content/Dashboard'
 import Siswa from '../../Component/Content/Siswa'
 import Tagihan from '../../Component/Content/Tagihan'
@@ -20,7 +21,7 @@ class PathJikaSiswa extends Component{
           <DataJenis />
         </Route>
         <Route path="/data-jurusan">
-
+          <DataJurusan />
         </Route>
         <Route path="/siswa">
           <Siswa />
